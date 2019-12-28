@@ -17,8 +17,11 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class AccountSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
     code = serializers.CharField(max_length=300)
     user = serializers.CharField(max_length=300)
+    usrname = serializers.CharField(max_length=300)
+    password = serializers.CharField(max_length=300)
     additional = serializers.CharField(max_length=300)
 
 

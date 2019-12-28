@@ -15,6 +15,13 @@ class Account(models.Model):
     password = models.CharField(max_length=300)
     additional = models.CharField(max_length=300)
 
+    def delete(self):
+        users = User.objects.filter(username=self.usrname)
+        if users:
+            for user in users:
+                user.delete()
+        super(Account, self).delete()
+
     def __str__(self):
         return self.additional
 
@@ -23,4 +30,3 @@ class Account(models.Model):
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
-
