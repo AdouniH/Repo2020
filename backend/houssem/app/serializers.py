@@ -37,6 +37,8 @@ class AccountPostSerializer(serializers.Serializer):
         user.save()
         account = Account.objects.create(code=validated_data['code'],
                                          user=user,
+                                         usrname=validated_data['username'],
+                                         password=validated_data['password'],
                                          additional=validated_data['additional'])
         account.save()
         return account

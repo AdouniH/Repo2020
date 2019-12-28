@@ -11,8 +11,8 @@ from django.contrib.auth.models import User
 class Account(models.Model):
     code = models.CharField(max_length=300)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    username = models.CharField(max_length=300)
-    pwd = models.CharField(max_length=300)
+    usrname = models.CharField(max_length=300)
+    password = models.CharField(max_length=300)
     additional = models.CharField(max_length=300)
 
     def __str__(self):
