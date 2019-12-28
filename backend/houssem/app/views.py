@@ -8,6 +8,7 @@ from rest_framework import status
 from django.contrib.auth.models import User
 from app.serializers import UserSerializer, AccountSerializer, AccountPostSerializer
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.authtoken.models import Token
 from app.models import Account
 
 
@@ -68,3 +69,32 @@ class AccountView(APIView):
             serializer = AccountSerializer(accounts, many=True)
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CodeView(APIView):
+    """
+    All users
+    http://localhost:8000/accounts/
+    """
+    permission_classes = []
+
+    def get(self, request, format=None):
+        return Response({})
+
+    def post(self, request, format=None):
+        """
+         {"code": "test_code"}
+         :return: {"token": "09f335c9ae2ad229cc623149b9b117f874c73a2b"}
+        """
+
+        code = request.data['code']
+        accounts = Account.objects.all().filter(code=code)
+        if accounts:
+            account = accounts[0]
+            username, password = account.usrname, account.password
+            user = User.objects.get(username=username)
+            print(user.id)
+            if user:
+                token, created = Token.objects.get_or_create(user=user)
+                return Response({'token': token.key})
+        return Response({'error': 'could not find account'})
