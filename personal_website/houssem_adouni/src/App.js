@@ -3,9 +3,9 @@ import './App.css';
 import { BrowserRouter as Router, Route, Redirect} from "react-router-dom";
 import Home from './cmpts/home';
 import Email from './cmpts/email';
-// import PrivateRoute from './cmpts/private_root'
+import AuthContext from './authcontext'
 
-const AuthContext = React.createContext();
+
 
 const initialState = {token: localStorage.getItem('token')};
 
@@ -15,6 +15,10 @@ function reducer(state, action) {
     case 'get':{
       const tokenKey = localStorage.getItem('token');
       return {token: tokenKey};
+    }
+    case 'logout':{
+      localStorage.removeItem('token');
+      return {};
     }
     default:
       throw new Error();
@@ -41,7 +45,7 @@ function App() {
         <Router>
             <div>
               <Route exact path="/" component={Home} />
-              <PrivateRoute exact path="/email" component={Email} />
+              <PrivateRoute exact path="/email/" component={Email} />
             </div>
          </Router>
     </AuthContext.Provider>

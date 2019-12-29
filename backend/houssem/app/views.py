@@ -6,10 +6,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User
-from app.serializers import UserSerializer, AccountSerializer, AccountPostSerializer
+from app.serializers import UserSerializer, AccountSerializer, AccountPostSerializer, EmailSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
-from app.models import Account
+from app.models import Account, Email
 
 
 class UserView(APIView):
@@ -87,14 +87,30 @@ class CodeView(APIView):
          :return: {"token": "09f335c9ae2ad229cc623149b9b117f874c73a2b"}
         """
 
-        code = request.data['code']
+        code = request.data['code'].strip()
         accounts = Account.objects.all().filter(code=code)
         if accounts:
             account = accounts[0]
             username, password = account.usrname, account.password
+            username = username
             user = User.objects.get(username=username)
-            print(user.id)
             if user:
                 token, created = Token.objects.get_or_create(user=user)
                 return Response({'token': token.key})
         return Response({'error': 'could not find account'})
+
+
+class EmailView(APIView):
+    permission_classes = []
+
+    def get(self, request, format=None):
+        emails = Email.objects.all()
+        serializer = EmailSerializer(emails, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = EmailSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

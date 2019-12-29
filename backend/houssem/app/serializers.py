@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from app.models import Account
+from app.models import Account, Email
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -33,7 +33,7 @@ class AccountPostSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         """
-        Create and return a new `Snippet` instance, given the validated data.
+
         """
         user = User.objects.create(username=validated_data['username'])
         user.set_password(validated_data['password'])
@@ -45,3 +45,17 @@ class AccountPostSerializer(serializers.Serializer):
                                          additional=validated_data['additional'])
         account.save()
         return account
+
+
+class EmailSerializer(serializers.Serializer):
+    email = serializers.EmailField(max_length=300)
+    sender = serializers.CharField(max_length=300)
+
+    def create(self, validated_data):
+        """
+
+        """
+        email = Email.objects.create(email=validated_data['email'],
+                                     sender=validated_data['sender'])
+        email.save()
+        return email
