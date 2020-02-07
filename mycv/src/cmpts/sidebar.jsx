@@ -4,16 +4,21 @@ import { useParams} from "react-router";
 import {Link} from "react-router-dom";
 
 function Sidebar(props) {
+
   var normal_style = {};
+
   var selected_style = {
-            backgroundColor: '#4CAF50',
+            backgroundColor: '#2E8B57',
             color: 'white'
         };
+  console.log(props.section.section)
 
   let { section } = useParams();
+
   var formation_style;
   var exp_style;
   var skills_style;
+
   if (section=='formation'){
     formation_style = selected_style;
     exp_style = normal_style;
