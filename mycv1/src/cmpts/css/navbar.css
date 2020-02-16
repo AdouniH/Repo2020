@@ -1,0 +1,15 @@
+.pointer{
+    cursor: pointer;
+}
+
+a:hover, a:active, a:focus {
+  outline: 0;
+}
+
+.blockleft{
+  margin-left: auto
+}
+
+.tst{
+  background-color: red;
+}
