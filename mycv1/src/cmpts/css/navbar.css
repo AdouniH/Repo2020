@@ -13,3 +13,8 @@ a:hover, a:active, a:focus {
 .tst{
   background-color: red;
 }
+
+.selected{
+  background-color: #000000;
+  border-radius: 4px;
+}
