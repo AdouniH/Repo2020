@@ -1,0 +1,30 @@
+
+.main{
+  /* background-color: grey; */
+  padding: 15px
+}
+
+.center{
+  margin: auto;
+  text-align: center;
+}
+
+.ifr{
+  height: 300px;
+}
+
+.ensgimg{
+
+  width: 100%;
+  padding: 5px;
+  margin: auto;
+  border-radius: 15px;
+}
+
+.tst1{
+  background-color: grey;
+}
+
+.tst2{
+  background-color: red;
+}

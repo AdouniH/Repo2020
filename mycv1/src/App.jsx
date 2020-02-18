@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Home from './cmpts/home.jsx';
-import Cv from './cmpts/cv.jsx';
+import {CvSkills, CvExperience, CvFormation} from './cmpts/cv.jsx';
 import Rdv from './cmpts/rdv.jsx';
 
 import {
@@ -26,7 +26,9 @@ function App() {
                 <div>
                   <Switch>
                       <Route exact path="/" children={<Home/>} />
-                      <Route exact path="/cv" children={<Cv/>} />
+                      <Route exact path="/cv/formation" children={<CvFormation/>} />
+                      <Route exact path="/cv/experience" children={<CvExperience/>} />
+                      <Route exact path="/cv/skills" children={<CvSkills/>} />
                       <Route exact path="/rdv" children={<Rdv/>} />
                   </Switch>
                 </div>

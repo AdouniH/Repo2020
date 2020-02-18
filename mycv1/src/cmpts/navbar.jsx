@@ -41,7 +41,7 @@ function NavigationBar(props) {
                    </li>
                    <li class="nav-item">
 
-                       <Link class={"nav-link pointer " + cv_css} to="/cv">CV</Link>
+                       <Link class={"nav-link pointer " + cv_css} to="/cv/formation">CV</Link>
                    </li>
                    <li class="nav-item">
                        <Link class={"nav-link pointer " + rdv_css} to="/rdv">Rendez vous</Link>
